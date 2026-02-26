@@ -1,282 +1,165 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ARD SAUDI | Intelligence Dashboard</title>
+    <title>ARD SAUDI Brut Background Structure</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;500;700&display=swap');
+        /* Importer des polices techniques et sophistiquées */
+        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&display=swap');
 
         :root {
-            --neon-green: #00ffaa;
-            --glass-bg: rgba(10, 20, 40, 0.85);
-            --glass-border: rgba(0, 255, 170, 0.4);
+            /* Palette de couleurs cible */
+            --neon-green: #00ffaa; /* Le vert néon cible pour les laser */
+            --deep-black: #020617; /* Le noir de jais cible */
+            --deep-blue: #0f172a; /* Le bleu nuit profond */
+            --glass-bg: rgba(10, 20, 40, 0.7); /* Transparence pour le studio */
+            --glass-border: rgba(0, 255, 170, 0.2); /* Bordure verte subtile */
         }
 
         body {
-            background-color: #02050a; /* Dark base to prevent black screen */
+            font-family: 'Space Grotesk', sans-serif;
+            background-color: var(--deep-black);
             color: white;
-            font-family: 'Rajdhani', sans-serif;
             margin: 0;
             overflow-x: hidden;
             min-height: 100vh;
         }
 
-        /* High-Tech Background Grid */
-        .bg-system {
+        /* ----------------------------------------------------------- */
+        /* STRUCTURE DE L'ARRIÈRE-PLAN BRUT (Cible) */
+        /* ----------------------------------------------------------- */
+
+        /* 1. L'Image de Paysage Urbain Nocturne de Riyad */
+        .skyline-bg {
             position: fixed;
-            inset: 0;
-            background: radial-gradient(circle at 50% 50%, #0f172a 0%, #02050a 100%);
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            /* URL d'une image de Riyad nocturne, centrée et couvrant tout */
+            background-image: url('https://images.unsplash.com/photo-1582234149810-7264871e84c9?q=80&w=2070&auto=format&fit=crop'); 
+            background-size: cover;
+            background-position: center;
+            /* Filtres pour assombrir et augmenter le contraste */
+            filter: brightness(0.2) contrast(1.3);
             z-index: -2;
         }
 
-        .grid-layer {
-            position: absolute;
+        /* 2. Superposition de Grille Technologique et Laser Vert */
+        .grid-overlay {
+            position: fixed;
             inset: 0;
+            /* Motif de grille technologique vert néon cible */
             background-image: linear-gradient(var(--glass-border) 1px, transparent 1px), 
                               linear-gradient(90deg, var(--glass-border) 1px, transparent 1px);
-            background-size: 50px 50px;
-            opacity: 0.1;
+            background-size: 40px 40px; /* Taille de la grille technologique */
+            opacity: 0.1; /* Opacité cible */
             z-index: -1;
         }
 
-        /* Kingdom Centre Tower - Built with Pure CSS */
-        .tower-container {
-            position: absolute;
-            top: 15%;
-            right: 15%;
-            width: 150px;
-            height: 500px;
-            pointer-events: none;
-        }
+        /* ----------------------------------------------------------- */
+        /* ÉLÉMENTS D'INTERFACE UTILISATEUR CIBLES (Reconstruits) */
+        /* ----------------------------------------------------------- */
 
-        .tower-body {
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(to top, rgba(0, 255, 170, 0.2), transparent);
-            clip-path: polygon(25% 100%, 75% 100%, 75% 20%, 50% 0%, 25% 20%);
-            border-left: 1px solid var(--glass-border);
-            border-right: 1px solid var(--glass-border);
-        }
-
-        /* THE SHIELD INTERACTION */
-        .shield-void {
+        /* Le "Kingdom Shield" (Le bouclier de la tour centrale) */
+        .shield-trigger {
             position: absolute;
-            top: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 50px;
-            height: 60px;
-            background: #02050a; /* The "Void" */
-            clip-path: polygon(0% 0%, 100% 0%, 50% 100%);
+            top: 15%; /* Positionnement vertical cible */
+            right: 22%; /* Positionnement horizontal cible */
+            width: 60px; /* Taille cible */
+            height: 80px; /* Taille cible */
             cursor: pointer;
-            pointer-events: auto;
-            z-index: 50;
-            transition: all 0.3s ease;
+            z-index: 10;
         }
 
-        .shield-glow {
+        /* Effet de lueur verte sur le bouclier */
+        .trust-card {
             position: absolute;
-            top: 25px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 60px;
-            height: 70px;
-            background: var(--neon-green);
-            filter: blur(20px);
-            opacity: 0;
-            transition: 0.4s ease;
-        }
-
-        .trust-score-card {
-            position: absolute;
-            top: 20px;
-            right: 160px;
-            background: var(--glass-bg);
+            top: -20px;
+            right: 80px;
+            background: rgba(0, 255, 170, 0.05); /* Lueur subtile */
+            backdrop-filter: blur(10px);
             border: 1px solid var(--neon-green);
-            padding: 1.5rem;
+            padding: 15px;
             border-radius: 12px;
             opacity: 0;
             transform: translateX(20px);
-            transition: 0.4s ease;
-            width: 200px;
-            box-shadow: 0 0 30px rgba(0, 255, 170, 0.3);
+            transition: all 0.4s ease;
+            pointer-events: none;
+            box-shadow: 0 0 20px rgba(0, 255, 170, 0.4);
         }
 
-        .shield-void:hover + .shield-glow { opacity: 0.6; }
-        .shield-void:hover ~ .trust-score-card { opacity: 1; transform: translateX(0); }
-
-        /* Glassmorphism Pillars */
-        .pillar-card {
-            background: var(--glass-bg);
-            backdrop-filter: blur(10px);
-            border: 1px solid var(--glass-border);
-            border-radius: 20px;
-            transition: 0.3s ease;
-            cursor: pointer;
+        /* Activer la lueur lors du survol de la zone de bouclier */
+        .shield-trigger:hover + .trust-card {
+            opacity: 1;
+            transform: translateX(0);
         }
 
-        .pillar-card:hover {
-            border-color: var(--neon-green);
-            box-shadow: 0 0 40px rgba(0, 255, 170, 0.2);
-            transform: translateY(-5px);
-        }
-
-        .neon-title {
+        /* Style Néon Vert Cible pour les Titres */
+        .neon-text {
             color: var(--neon-green);
-            text-shadow: 0 0 10px var(--neon-green);
+            text-shadow: 0 0 10px rgba(0, 255, 170, 0.6); /* Lueur verte */
         }
     </style>
 </head>
 <body>
 
-<div class="bg-system">
-    <div class="grid-layer"></div>
-    <div class="tower-container">
-        <div class="shield-void"></div>
-        <div class="shield-glow"></div>
-        <div class="trust-score-card" id="trust-card">
-            <p class="text-[10px] uppercase tracking-[0.2em] text-[#00ffaa]" id="trust-label">ARD Internal Trust Score</p>
-            <p class="text-4xl font-bold my-1">94%</p>
-            <p class="text-[9px] opacity-70 uppercase" id="trust-sub">Real-Time Compliance Monitoring</p>
-        </div>
-        <div class="tower-body"></div>
-    </div>
-</div>
+    <div class="skyline-bg"></div>
+    <div class="grid-overlay"></div>
 
-<header class="flex justify-between items-center p-10 relative z-50">
-    <div class="flex items-center gap-4">
-        <div class="w-8 h-8 border border-yellow-500 rotate-45 flex items-center justify-center">
-            <span class="rotate-[-45deg] text-yellow-500 text-xs">▲</span>
-        </div>
-        <span class="text-2xl font-bold tracking-widest">ARD SAUDI</span>
-    </div>
-    
-    <nav class="hidden lg:flex gap-12 text-[11px] font-bold uppercase tracking-[0.2em]">
-        <a href="#" class="hover:text-[#00ffaa] transition">The Intelligence</a>
-        <a href="#" class="hover:text-[#00ffaa] transition" id="nav-sol">Our Solutions</a>
-        <a href="#" class="hover:text-[#00ffaa] transition" id="nav-who">Who are we</a>
-        <a href="#" class="hover:text-[#00ffaa] transition" id="nav-contact">Contact</a>
-    </nav>
-
-    <button onclick="toggleLang()" id="lang-btn" class="border border-[#00ffaa] px-4 py-1 rounded-full text-[10px] font-bold hover:bg-[#00ffaa] hover:text-black transition">
-        EN
-    </button>
-</header>
-
-<main class="max-w-7xl mx-auto px-10 pt-10 relative z-40">
-    <div class="grid grid-cols-12 gap-12">
+    <main class="max-w-7xl mx-auto px-10 pt-10 relative">
         
-        <div class="col-span-12 lg:col-span-7">
-            <h1 class="text-7xl font-bold mb-2">ARD SAUDI</h1>
-            <p class="text-xl text-[#00ffaa] font-medium tracking-wide mb-16" id="subtitle">Securing the Digital Soil of the Kingdom</p>
-
-            <div class="grid grid-cols-3 gap-6 mb-16">
-                <div class="pillar-card p-8 text-center" onclick="alert('Module Loading...')">
-                    <span class="text-5xl font-bold neon-title block mb-4">A</span>
-                    <p class="text-[11px] uppercase font-bold tracking-widest" id="p-a">AI & Emerging Tech.</p>
-                </div>
-                <div class="pillar-card p-8 text-center border-[#00ffaa]" onclick="alert('Module Loading...')">
-                    <span class="text-5xl font-bold neon-title block mb-4">R</span>
-                    <p class="text-[11px] uppercase font-bold tracking-widest" id="p-r">GRC & Regulatory Governance</p>
-                    <div class="mt-4 text-[9px] border border-[#00ffaa] py-1 rounded-full text-[#00ffaa]">[Enter Intelligence]</div>
-                </div>
-                <div class="pillar-card p-8 text-center" onclick="alert('Module Loading...')">
-                    <span class="text-5xl font-bold neon-title block mb-4">D</span>
-                    <p class="text-[11px] uppercase font-bold tracking-widest" id="p-d">Data Security & Cyber Defense</p>
-                </div>
-            </div>
-
-            <div class="pillar-card p-8 border-l-4 border-[#00ffaa]">
-                <p class="text-xl italic opacity-90" id="speech">
-                    "Welcome to the ARD Intelligence Studio. In the Saudi Vision 2030 era, compliance is your digital sovereignty."
-                </p>
-            </div>
+        <div class="shield-trigger"></div>
+        <div class="trust-card">
+            <p class="text-[10px] uppercase tracking-widest text-[#00ffaa]">ARD Internal Trust Score</p>
+            <p class="text-3xl font-bold neon-text">94%</p>
+            <p class="text-[8px] uppercase">Surveillance Continue de Conformité</p>
         </div>
 
-        <div class="col-span-12 lg:col-span-5">
-            <div class="pillar-card p-2 relative">
-                <div class="absolute top-6 right-6 bg-red-600 px-3 py-1 rounded-md text-[10px] font-bold z-10">LIVE</div>
-                <div class="aspect-video bg-black rounded-xl overflow-hidden flex items-center justify-center">
-                    <div class="text-[#00ffaa] opacity-20 text-xs animate-pulse">Establishing Secure Stream...</div>
+        <div class="grid grid-cols-12 gap-12 mt-10">
+            
+            <div class="col-span-12 lg:col-span-7">
+                <h1 class="text-6xl font-bold mb-2">ARD SAUDI</h1>
+                <p class="text-xl text-[#00ffaa] font-medium tracking-wide mb-16">Securing the Digital Soil of the Kingdom</p>
+
+                <div class="grid grid-cols-3 gap-6 mb-16">
+                    <div class="p-8 text-center" style="background: rgba(10,20,40,0.6); border: 1px solid rgba(0,255,170,0.2); border-radius: 20px;">
+                        <span class="text-5xl font-bold neon-text block mb-4">A</span>
+                        <p class="text-[11px] uppercase font-bold tracking-widest">IA & Tech. Émergentes</p>
+                    </div>
+                    <div class="p-8 text-center" style="background: rgba(10,20,40,0.6); border: 1px solid rgba(0,255,170,0.2); border-radius: 20px; border-color: var(--neon-green);">
+                        <span class="text-5xl font-bold neon-text block mb-4">R</span>
+                        <p class="text-[11px] uppercase font-bold tracking-widest">GRC & Gouvernance</p>
+                    </div>
+                    <div class="p-8 text-center" style="background: rgba(10,20,40,0.6); border: 1px solid rgba(0,255,170,0.2); border-radius: 20px;">
+                        <span class="text-5xl font-bold neon-text block mb-4">D</span>
+                        <p class="text-[11px] uppercase font-bold tracking-widest">Sécurité des Données</p>
+                    </div>
                 </div>
-                <div class="p-6">
-                    <h3 class="text-2xl font-bold">Saif's Virtual Studio</h3>
-                    <p class="text-[10px] text-[#00ffaa] uppercase tracking-[0.3em]" id="studio-sub">Live Intelligence Briefing</p>
+
+                <div class="p-8 border-l-4 border-[#00ffaa]" style="background: rgba(10,20,40,0.6); border-radius: 20px;">
+                    <p class="text-xl italic opacity-90">
+                        "Welcome to the ARD Intelligence Studio. In the Saudi Vision 2030 era, compliance is your digital sovereignty."
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-span-12 lg:col-span-5 flex flex-col justify-center">
+                <div class="relative p-1 studio-frame studio-bg" style="background: rgba(0,0,0,0.8); border-radius: 24px; border: 1px solid rgba(255,255,255,0.1);">
+                    <div class="aspect-video bg-black flex items-center justify-center" style="border-radius: 20px;">
+                        <span class="text-xs opacity-20 italic">Virtual Studio Loading...</span>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold">Studio Virtuel de Saif</h3>
+                        <p class="text-xs neon-text uppercase tracking-widest">Briefing Intelligence en Direct</p>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</main>
+    </main>
 
-<footer class="max-w-7xl mx-auto px-10 mt-24 pb-20">
-    <p class="text-[11px] opacity-40 uppercase tracking-[0.5em] mb-10" id="board-title">The Governance Board</p>
-    <div class="flex gap-20">
-        <div class="flex items-center gap-5">
-            <div class="w-14 h-14 rounded-full border-2 border-[#00ffaa] bg-slate-900"></div>
-            <div>
-                <p class="text-lg font-bold">Nawal Harroud</p>
-                <p class="text-[10px] opacity-50 uppercase tracking-widest" id="f-founder">Founder & Strategic Advisor</p>
-            </div>
-        </div>
-        <div class="flex items-center gap-5">
-            <div class="w-14 h-14 rounded-full border-2 border-[#00ffaa] bg-slate-900"></div>
-            <div>
-                <p class="text-lg font-bold">Saif</p>
-                <p class="text-[10px] opacity-50 uppercase tracking-widest" id="f-analyst">Lead AI Intelligence Analyst</p>
-            </div>
-        </div>
-    </div>
-</footer>
-
-<script>
-    let isFrench = false;
-    const content = {
-        en: {
-            sub: "Securing the Digital Soil of the Kingdom",
-            pa: "AI & Emerging Tech.",
-            pr: "GRC & Regulatory Governance",
-            pd: "Data Security & Cyber Defense",
-            speech: '"Welcome to the ARD Intelligence Studio. In the Saudi Vision 2030 era, compliance is your digital sovereignty."',
-            studio: "Live Intelligence Briefing",
-            board: "The Governance Board",
-            founder: "Founder & Strategic Advisor",
-            analyst: "Lead AI Intelligence Analyst",
-            trust: "ARD Internal Trust Score",
-            trustSub: "Real-Time Compliance Monitoring"
-        },
-        fr: {
-            sub: "Sécurisation du sol numérique du Royaume",
-            pa: "IA & Tech. Émergentes",
-            pr: "GRC & Gouvernance Réglementaire",
-            pd: "Sécurité & Cyberdéfense des Données",
-            speech: '"Bienvenue dans le Studio Intelligence ARD. À l\'ère de Vision 2030, la conformité est votre souveraineté numérique."',
-            studio: "Briefing d'Intelligence en Direct",
-            board: "Conseil de Gouvernance",
-            founder: "Fondatrice & Conseillère Stratégique",
-            analyst: "Analyste Principal en IA",
-            trust: "Score de Confiance Interne ARD",
-            trustSub: "Surveillance de Conformité en Temps Réel"
-        }
-    };
-
-    function toggleLang() {
-        isFrench = !isFrench;
-        const lang = isFrench ? 'fr' : 'en';
-        document.getElementById('lang-btn').innerText = isFrench ? 'FR' : 'EN';
-        document.getElementById('subtitle').innerText = content[lang].sub;
-        document.getElementById('p-a').innerText = content[lang].pa;
-        document.getElementById('p-r').innerText = content[lang].pr;
-        document.getElementById('p-d').innerText = content[lang].pd;
-        document.getElementById('speech').innerText = content[lang].speech;
-        document.getElementById('studio-sub').innerText = content[lang].studio;
-        document.getElementById('board-title').innerText = content[lang].board;
-        document.getElementById('f-founder').innerText = content[lang].founder;
-        document.getElementById('f-analyst').innerText = content[lang].analyst;
-        document.getElementById('trust-label').innerText = content[lang].trust;
-        document.getElementById('trust-sub').innerText = content[lang].trustSub;
-    }
-</script>
 </body>
 </html>
