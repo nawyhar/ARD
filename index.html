@@ -5,295 +5,212 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ARD SAUDI | Intelligence & Compliance</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@300;500;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;500;700&display=swap');
 
         :root {
             --neon-green: #00ffaa;
-            --glass-bg: rgba(10, 20, 40, 0.6);
+            --glass-bg: rgba(15, 23, 42, 0.8);
             --glass-border: rgba(0, 255, 170, 0.3);
         }
 
         body {
-            background: #02050a;
+            background-color: #020617; /* Deepest dark blue to ensure visibility */
             color: white;
             font-family: 'Rajdhani', sans-serif;
-            overflow-x: hidden;
             margin: 0;
+            min-height: 100vh;
         }
 
-        /* Riyadh Skyline Background */
-        .skyline-bg {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url('https://images.unsplash.com/photo-1582234149810-7264871e84c9?q=80&w=2070&auto=format&fit=crop') center/cover no-repeat;
-            filter: brightness(0.3) contrast(1.2);
-            z-index: -2;
-        }
-
-        .grid-overlay {
+        /* Fixed Grid Background - No external images needed */
+        .bg-structure {
             position: fixed;
             inset: 0;
-            background-image: linear-gradient(var(--glass-border) 1px, transparent 1px), linear-gradient(90deg, var(--glass-border) 1px, transparent 1px);
-            background-size: 50px 50px;
-            opacity: 0.1;
+            background: linear-gradient(to bottom, #020617, #0f172a);
             z-index: -1;
         }
 
-        /* The Kingdom Shield Interaction */
-        .shield-trigger {
+        .grid-overlay {
             position: absolute;
-            top: 15%;
-            right: 22%;
-            width: 60px;
-            height: 80px;
+            inset: 0;
+            background-image: linear-gradient(var(--glass-border) 1px, transparent 1px), 
+                              linear-gradient(90deg, var(--glass-border) 1px, transparent 1px);
+            background-size: 40px 40px;
+            opacity: 0.05;
+        }
+
+        /* Kingdom Shield Tower - CSS Representation */
+        .tower-representation {
+            position: absolute;
+            top: 10%;
+            right: 15%;
+            width: 120px;
+            height: 400px;
+            background: linear-gradient(to top, rgba(0, 255, 170, 0.1), transparent);
+            clip-path: polygon(20% 100%, 80% 100%, 80% 15%, 50% 0%, 20% 15%);
+            border-left: 1px solid var(--glass-border);
+            border-right: 1px solid var(--glass-border);
+        }
+
+        .shield-void {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 50px;
+            background: #020617;
+            clip-path: polygon(0% 0%, 100% 0%, 50% 100%);
             cursor: pointer;
-            z-index: 10;
+            z-index: 20;
         }
 
         .trust-card {
             position: absolute;
-            top: -20px;
-            right: 80px;
-            background: rgba(0, 255, 170, 0.1);
-            backdrop-filter: blur(10px);
-            border: 1px solid var(--neon-green);
-            padding: 15px;
-            border-radius: 12px;
-            opacity: 0;
-            transform: translateX(20px);
-            transition: all 0.4s ease;
-            pointer-events: none;
-            box-shadow: 0 0 20px rgba(0, 255, 170, 0.4);
-        }
-
-        .shield-trigger:hover + .trust-card {
-            opacity: 1;
-            transform: translateX(0);
-        }
-
-        /* Glass Cards for A, R, D */
-        .glass-module {
+            top: 20px;
+            right: 140px;
             background: var(--glass-bg);
-            backdrop-filter: blur(15px);
-            border: 1px solid var(--glass-border);
-            border-radius: 20px;
-            transition: all 0.3s ease;
-        }
-
-        .glass-module:hover {
-            border-color: var(--neon-green);
-            box-shadow: 0 0 30px rgba(0, 255, 170, 0.2);
-            transform: translateY(-5px);
-        }
-
-        .neon-text {
-            color: var(--neon-green);
-            text-shadow: 0 0 10px rgba(0, 255, 170, 0.5);
-        }
-
-        .btn-enter {
             border: 1px solid var(--neon-green);
-            padding: 8px 24px;
-            border-radius: 30px;
-            background: rgba(0, 255, 170, 0.05);
-            transition: 0.3s;
-        }
-
-        .btn-enter:hover {
-            background: var(--neon-green);
-            color: black;
+            padding: 1rem;
+            border-radius: 8px;
+            opacity: 0;
+            transition: 0.4s;
+            pointer-events: none;
             box-shadow: 0 0 20px var(--neon-green);
         }
 
-        /* Video Studio Styling */
-        .studio-frame {
-            background: rgba(0,0,0,0.8);
-            border-radius: 24px;
-            overflow: hidden;
-            border: 1px solid rgba(255,255,255,0.1);
+        .shield-void:hover + .trust-card {
+            opacity: 1;
         }
 
-        .live-tag {
-            background: #ff0044;
-            padding: 2px 10px;
-            border-radius: 4px;
-            font-size: 10px;
-            font-weight: bold;
+        /* Glassmorphism Cards */
+        .glass-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            transition: 0.3s;
+        }
+
+        .glass-card:hover {
+            border-color: var(--neon-green);
+            box-shadow: 0 0 25px rgba(0, 255, 170, 0.2);
+        }
+
+        .neon-glow {
+            color: var(--neon-green);
+            text-shadow: 0 0 8px var(--neon-green);
         }
     </style>
 </head>
 <body>
 
-<div class="skyline-bg"></div>
-<div class="grid-overlay"></div>
-
-<header class="flex justify-between items-center p-8">
-    <div class="flex items-center gap-4">
-        <div class="w-10 h-10 border-2 border-yellow-500 rounded-tr-xl rounded-bl-xl rotate-45 flex items-center justify-center">
-            <span class="rotate-[-45deg] text-yellow-500 font-bold">A</span>
+<div class="bg-structure">
+    <div class="grid-overlay"></div>
+    <div class="tower-representation">
+        <div class="shield-void" title="Hover for Trust Score"></div>
+        <div class="trust-card" id="card-content">
+            <p class="text-[10px] uppercase tracking-widest text-[#00ffaa]">ARD Internal Trust</p>
+            <p class="text-3xl font-bold">94%</p>
+            <p class="text-[8px] uppercase">SDAIA / SAMA Compliant</p>
         </div>
-        <span class="text-2xl font-bold tracking-widest text-white">ARD SAUDI</span>
     </div>
+</div>
 
-    <nav class="hidden md:flex gap-10 text-sm font-semibold tracking-tighter">
-        <a href="#" class="hover:text-[#00ffaa] transition">THE INTELLIGENCE</a>
-        <a href="#" class="hover:text-[#00ffaa] transition" id="nav-solutions">OUR SOLUTIONS</a>
-        <a href="#" class="hover:text-[#00ffaa] transition" id="nav-who">WHO ARE WE</a>
-        <a href="#" class="hover:text-[#00ffaa] transition" id="nav-contact">CONTACT</a>
+<header class="flex justify-between items-center p-10 relative z-50">
+    <div class="text-2xl font-bold tracking-tighter">
+        <span class="text-[#00ffaa]">ARD</span> SAUDI
+    </div>
+    <nav class="hidden md:flex gap-10 text-xs font-bold uppercase tracking-widest">
+        <a href="#" class="hover:text-[#00ffaa]">Our Solutions</a>
+        <a href="#" class="hover:text-[#00ffaa]">Who are we</a>
+        <a href="#" class="hover:text-[#00ffaa]">Contact</a>
     </nav>
-
-    <div class="relative group">
-        <button class="flex items-center gap-2 border border-[#00ffaa] px-4 py-1 rounded-full text-xs" id="lang-btn">
-            🇬🇧 EN
-        </button>
-        <div class="absolute right-0 mt-2 w-24 bg-black border border-[#00ffaa] hidden group-hover:block rounded-xl overflow-hidden">
-            <button onclick="switchLang('en')" class="w-full text-left p-2 hover:bg-[#00ffaa] hover:text-black text-xs">ENGLISH</button>
-            <button onclick="switchLang('fr')" class="w-full text-left p-2 hover:bg-[#00ffaa] hover:text-black text-xs">FRANÇAIS</button>
-        </div>
-    </div>
+    <button onclick="toggleLang()" id="lang-btn" class="border border-[#00ffaa] px-4 py-1 rounded-full text-xs hover:bg-[#00ffaa] hover:text-black transition">
+        EN
+    </button>
 </header>
 
-<main class="max-w-7xl mx-auto px-8 mt-10 relative">
-    
-    <div class="shield-trigger"></div>
-    <div class="trust-card">
-        <p class="text-[10px] text-white opacity-70 uppercase tracking-widest" id="trust-title">ARD Internal Trust Score</p>
-        <p class="text-3xl font-bold neon-text">94%</p>
-        <p class="text-[8px] uppercase" id="trust-sub">Real-Time Compliance Monitoring</p>
-    </div>
-
-    <div class="grid grid-cols-12 gap-12">
-        
+<main class="max-w-7xl mx-auto px-10 pt-10 relative z-40">
+    <div class="grid grid-cols-12 gap-10">
         <div class="col-span-12 lg:col-span-7">
-            <h1 class="text-6xl font-bold mb-2">ARD SAUDI</h1>
-            <p class="text-xl opacity-60 mb-12" id="main-subtitle">Securing the Digital Soil of the Kingdom</p>
+            <h1 class="text-6xl font-bold leading-tight mb-4">ARD SAUDI</h1>
+            <p class="text-xl text-[#00ffaa] opacity-80 mb-12" id="subtitle">Securing the Digital Soil of the Kingdom</p>
 
-            <div class="grid grid-cols-3 gap-6 mb-12">
-                <div class="glass-module p-6 text-center cursor-pointer" onclick="openModal()">
-                    <span class="text-4xl font-bold neon-text mb-4 block">A</span>
-                    <p class="text-xs uppercase font-bold" id="pill-a">AI & Emerging Tech</p>
+            <div class="grid grid-cols-3 gap-4 mb-10">
+                <div class="glass-card p-6 text-center cursor-pointer">
+                    <div class="text-4xl font-bold neon-glow mb-2">A</div>
+                    <div class="text-[10px] uppercase font-bold" id="txt-a">AI & Emerging Tech</div>
                 </div>
-                <div class="glass-module p-6 text-center cursor-pointer" onclick="openModal()">
-                    <span class="text-4xl font-bold neon-text mb-4 block">R</span>
-                    <p class="text-xs uppercase font-bold" id="pill-r">GRC & Governance</p>
-                    <button class="btn-enter text-[10px] mt-4" id="btn-enter">Enter Intelligence</button>
+                <div class="glass-card p-6 text-center cursor-pointer border-[#00ffaa]">
+                    <div class="text-4xl font-bold neon-glow mb-2">R</div>
+                    <div class="text-[10px] uppercase font-bold" id="txt-r">GRC & Governance</div>
+                    <div class="mt-4 text-[9px] border border-[#00ffaa] rounded-full py-1">[Enter the Intelligence]</div>
                 </div>
-                <div class="glass-module p-6 text-center cursor-pointer" onclick="openModal()">
-                    <span class="text-4xl font-bold neon-text mb-4 block">D</span>
-                    <p class="text-xs uppercase font-bold" id="pill-d">Data Security</p>
+                <div class="glass-card p-6 text-center cursor-pointer">
+                    <div class="text-4xl font-bold neon-glow mb-2">D</div>
+                    <div class="text-[10px] uppercase font-bold" id="txt-d">Data Security</div>
                 </div>
             </div>
 
-            <div class="glass-module p-6 border-l-4 border-[#00ffaa]">
-                <p class="italic text-lg opacity-90" id="saif-speech">
+            <div class="glass-card p-8 border-l-4 border-[#00ffaa]">
+                <p class="italic text-lg" id="speech">
                     "Welcome to the ARD Intelligence Studio. In the Saudi Vision 2030 era, compliance is your digital sovereignty."
                 </p>
             </div>
         </div>
 
-        <div class="col-span-12 lg:col-span-5 flex flex-col justify-center">
-            <div class="studio-frame relative p-1 shadow-2xl">
-                <div class="absolute top-4 right-4 z-10 flex items-center gap-2">
-                    <span class="live-tag">LIVE</span>
+        <div class="col-span-12 lg:col-span-5">
+            <div class="glass-card p-2 aspect-video relative flex flex-col">
+                <div class="absolute top-4 right-4 bg-red-600 text-[10px] px-2 py-1 rounded font-bold">LIVE</div>
+                <div class="flex-grow bg-slate-900 rounded-lg flex items-center justify-center">
+                    <span class="text-xs opacity-30 italic">Virtual Studio Loading...</span>
                 </div>
-                <div class="aspect-video bg-gradient-to-br from-gray-900 to-black flex items-center justify-center">
-                    <img src="https://images.unsplash.com/photo-1614850523296-d8c1af93d400?q=80&w=2070&auto=format&fit=crop" class="opacity-40" alt="Saif">
-                </div>
-                <div class="p-6 bg-black/80">
-                    <h3 class="text-xl font-bold">Saif's Virtual Studio</h3>
-                    <p class="text-xs neon-text uppercase tracking-widest" id="studio-sub">Live Intelligence Briefing</p>
+                <div class="p-4">
+                    <h3 class="font-bold text-lg">Saif's Virtual Studio</h3>
+                    <p class="text-[10px] text-[#00ffaa] uppercase tracking-widest" id="studio-sub">Live Intelligence Briefing</p>
                 </div>
             </div>
         </div>
     </div>
 </main>
 
-<footer class="max-w-7xl mx-auto px-8 mt-20 pb-10">
-    <p class="text-[10px] opacity-40 uppercase tracking-[0.5em] mb-6" id="board-title">The Governance Board</p>
-    <div class="flex gap-12">
+<footer class="max-w-7xl mx-auto px-10 mt-20 pb-20">
+    <p class="text-[10px] opacity-40 uppercase tracking-[0.4em] mb-8" id="board-txt">The Governance Board</p>
+    <div class="flex gap-20">
         <div class="flex items-center gap-4">
-            <div class="w-12 h-12 rounded-full border-2 border-[#00ffaa] bg-gray-800"></div>
+            <div class="w-12 h-12 rounded-full border border-[#00ffaa] bg-slate-800"></div>
             <div>
                 <p class="text-sm font-bold">Nawal Harroud</p>
-                <p class="text-[10px] opacity-50 uppercase" id="f-founder">Founder & Strategic Advisor</p>
+                <p class="text-[10px] opacity-50 uppercase" id="founder-txt">Founder & Strategic Advisor</p>
             </div>
         </div>
         <div class="flex items-center gap-4">
-            <div class="w-12 h-12 rounded-full border-2 border-[#00ffaa] bg-gray-800"></div>
+            <div class="w-12 h-12 rounded-full border border-[#00ffaa] bg-slate-800"></div>
             <div>
                 <p class="text-sm font-bold">Saif</p>
-                <p class="text-[10px] opacity-50 uppercase" id="f-analyst">Lead AI Intelligence Analyst</p>
+                <p class="text-[10px] opacity-50 uppercase" id="analyst-txt">Lead AI Intelligence Analyst</p>
             </div>
         </div>
     </div>
 </footer>
 
 <script>
-    const data = {
-        en: {
-            subtitle: "Securing the Digital Soil of the Kingdom",
-            pillA: "AI & Emerging Tech",
-            pillR: "GRC & Governance",
-            pillD: "Data Security",
-            enter: "Enter Intelligence",
-            speech: '"Welcome to the ARD Intelligence Studio. In the Saudi Vision 2030 era, compliance is your digital sovereignty."',
-            studioSub: "Live Intelligence Briefing",
-            trustTitle: "ARD Internal Trust Score",
-            trustSub: "Real-Time Compliance Monitoring",
-            board: "The Governance Board",
-            founder: "Founder & Strategic Advisor",
-            analyst: "Lead AI Intelligence Analyst"
-        },
-        fr: {
-            subtitle: "Sécurisation du sol numérique du Royaume",
-            pillA: "Conformité IA",
-            pillR: "GRC & Gouvernance",
-            pillD: "Sécurité des Données",
-            enter: "Entrer dans l'Intelligence",
-            speech: '"Bienvenue dans le Studio Intelligence ARD. À l\'ère de Vision 2030, la conformité est votre souveraineté numérique."',
-            studioSub: "Briefing d'Intelligence en Direct",
-            trustTitle: "Score de Confiance Interne ARD",
-            trustSub: "Surveillance Continue de Conformité",
-            board: "Conseil de Gouvernance",
-            founder: "Fondatrice & Conseillère Stratégique",
-            analyst: "Analyste Principal en IA"
-        }
-    };
-
-    function switchLang(lang) {
-        document.getElementById('lang-btn').innerText = lang === 'en' ? '🇬🇧 EN' : '🇫🇷 FR';
-        document.getElementById('main-subtitle').innerText = data[lang].subtitle;
-        document.getElementById('pill-a').innerText = data[lang].pillA;
-        document.getElementById('pill-r').innerText = data[lang].pillR;
-        document.getElementById('pill-d').innerText = data[lang].pillD;
-        document.getElementById('btn-enter').innerText = data[lang].enter;
-        document.getElementById('saif-speech').innerText = data[lang].speech;
-        document.getElementById('studio-sub').innerText = data[lang].studioSub;
-        document.getElementById('trust-title').innerText = data[lang].trustTitle;
-        document.getElementById('trust-sub').innerText = data[lang].trustSub;
-        document.getElementById('board-title').innerText = data[lang].board;
-        document.getElementById('f-founder').innerText = data[lang].founder;
-        document.getElementById('f-analyst').innerText = data[lang].analyst;
+    let isFr = false;
+    function toggleLang() {
+        isFr = !isFr;
+        document.getElementById('lang-btn').innerText = isFr ? 'FR' : 'EN';
+        document.getElementById('subtitle').innerText = isFr ? "Sécurisation du sol numérique du Royaume" : "Securing the Digital Soil of the Kingdom";
+        document.getElementById('txt-a').innerText = isFr ? "Conformité IA" : "AI & Emerging Tech";
+        document.getElementById('txt-r').innerText = isFr ? "GRC & Gouvernance" : "GRC & Regulatory Governance";
+        document.getElementById('txt-d').innerText = isFr ? "Sécurité des Données" : "Data Security & Cyber Defense";
+        document.getElementById('speech').innerText = isFr ? '"Bienvenue dans l\'ARD Intelligence Studio. À l\'ère de Vision 2030, la conformité est votre souveraineté numérique."' : '"Welcome to the ARD Intelligence Studio. In the Saudi Vision 2030 era, compliance is your digital sovereignty."';
+        document.getElementById('studio-sub').innerText = isFr ? "Briefing d'Intelligence en Direct" : "Live Intelligence Briefing";
+        document.getElementById('board-txt').innerText = isFr ? "CONSEIL DE GOUVERNANCE" : "THE GOVERNANCE BOARD";
+        document.getElementById('founder-txt').innerText = isFr ? "Fondatrice & Conseillère Stratégique" : "Founder & Strategic Advisor";
+        document.getElementById('analyst-txt').innerText = isFr ? "Analyste Principal IA" : "Lead AI Intelligence Analyst";
+        document.getElementById('card-content').innerHTML = isFr ? '<p class="text-[10px] uppercase tracking-widest text-[#00ffaa]">Score de Confiance ARD</p><p class="text-3xl font-bold">94%</p><p class="text-[8px] uppercase">Conforme SDAIA / SAMA</p>' : '<p class="text-[10px] uppercase tracking-widest text-[#00ffaa]">ARD Internal Trust</p><p class="text-3xl font-bold">94%</p><p class="text-[8px] uppercase">SDAIA / SAMA Compliant</p>';
     }
-
-    function openModal() {
-        alert("Intelligence Module Initializing... Join the Priority Access List.");
-    }
-
-    // Animations
-    gsap.from(".glass-module", {
-        duration: 1,
-        y: 50,
-        opacity: 0,
-        stagger: 0.2,
-        ease: "power4.out"
-    });
 </script>
-
 </body>
 </html>
