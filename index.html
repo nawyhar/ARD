@@ -1,165 +1,267 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ARD SAUDI Brut Background Structure</title>
+    <title>ARD SAUDI | Elite Intelligence</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <style>
-        /* Importer des polices techniques et sophistiquées */
-        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Outfit:wght@300;400;600&display=swap');
 
         :root {
-            /* Palette de couleurs cible */
-            --neon-green: #00ffaa; /* Le vert néon cible pour les laser */
-            --deep-black: #020617; /* Le noir de jais cible */
-            --deep-blue: #0f172a; /* Le bleu nuit profond */
-            --glass-bg: rgba(10, 20, 40, 0.7); /* Transparence pour le studio */
-            --glass-border: rgba(0, 255, 170, 0.2); /* Bordure verte subtile */
+            --gold: #D4AF37;
+            --neon: #00ffaa;
+            --bg: #05080a;
         }
 
         body {
-            font-family: 'Space Grotesk', sans-serif;
-            background-color: var(--deep-black);
-            color: white;
-            margin: 0;
+            background-color: var(--bg);
+            color: #e2e8f0;
+            font-family: 'Outfit', sans-serif;
             overflow-x: hidden;
-            min-height: 100vh;
         }
 
-        /* ----------------------------------------------------------- */
-        /* STRUCTURE DE L'ARRIÈRE-PLAN BRUT (Cible) */
-        /* ----------------------------------------------------------- */
+        .syncopate { font-family: 'Syncopate', sans-serif; }
 
-        /* 1. L'Image de Paysage Urbain Nocturne de Riyad */
-        .skyline-bg {
+        /* Dynamic Background */
+        #canvas-container {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            /* URL d'une image de Riyad nocturne, centrée et couvrant tout */
-            background-image: url('https://images.unsplash.com/photo-1582234149810-7264871e84c9?q=80&w=2070&auto=format&fit=crop'); 
-            background-size: cover;
-            background-position: center;
-            /* Filtres pour assombrir et augmenter le contraste */
-            filter: brightness(0.2) contrast(1.3);
-            z-index: -2;
-        }
-
-        /* 2. Superposition de Grille Technologique et Laser Vert */
-        .grid-overlay {
-            position: fixed;
-            inset: 0;
-            /* Motif de grille technologique vert néon cible */
-            background-image: linear-gradient(var(--glass-border) 1px, transparent 1px), 
-                              linear-gradient(90deg, var(--glass-border) 1px, transparent 1px);
-            background-size: 40px 40px; /* Taille de la grille technologique */
-            opacity: 0.1; /* Opacité cible */
             z-index: -1;
+            background: radial-gradient(circle at 50% 50%, #0a1a1a 0%, #05080a 100%);
         }
 
-        /* ----------------------------------------------------------- */
-        /* ÉLÉMENTS D'INTERFACE UTILISATEUR CIBLES (Reconstruits) */
-        /* ----------------------------------------------------------- */
+        /* Glassmorphism 2.0 */
+        .glass {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 24px;
+            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+        }
 
-        /* Le "Kingdom Shield" (Le bouclier de la tour centrale) */
-        .shield-trigger {
-            position: absolute;
-            top: 15%; /* Positionnement vertical cible */
-            right: 22%; /* Positionnement horizontal cible */
-            width: 60px; /* Taille cible */
-            height: 80px; /* Taille cible */
+        .glass:hover {
+            background: rgba(0, 255, 170, 0.05);
+            border-color: var(--neon);
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0, 255, 170, 0.1);
+        }
+
+        /* The Shield Scanner */
+        .shield-scanner {
+            width: 120px;
+            height: 160px;
+            background: linear-gradient(180deg, transparent, rgba(0, 255, 170, 0.2), transparent);
+            position: relative;
+            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+            border: 2px solid rgba(0, 255, 170, 0.3);
+            overflow: hidden;
             cursor: pointer;
-            z-index: 10;
         }
 
-        /* Effet de lueur verte sur le bouclier */
-        .trust-card {
+        .scanner-line {
             position: absolute;
-            top: -20px;
-            right: 80px;
-            background: rgba(0, 255, 170, 0.05); /* Lueur subtile */
-            backdrop-filter: blur(10px);
-            border: 1px solid var(--neon-green);
-            padding: 15px;
-            border-radius: 12px;
-            opacity: 0;
-            transform: translateX(20px);
-            transition: all 0.4s ease;
-            pointer-events: none;
-            box-shadow: 0 0 20px rgba(0, 255, 170, 0.4);
+            width: 100%;
+            height: 2px;
+            background: var(--neon);
+            box-shadow: 0 0 15px var(--neon);
+            top: 0;
+            animation: scan 3s infinite linear;
         }
 
-        /* Activer la lueur lors du survol de la zone de bouclier */
-        .shield-trigger:hover + .trust-card {
-            opacity: 1;
-            transform: translateX(0);
+        @keyframes scan {
+            0% { top: 0; }
+            100% { top: 100%; }
         }
 
-        /* Style Néon Vert Cible pour les Titres */
-        .neon-text {
-            color: var(--neon-green);
-            text-shadow: 0 0 10px rgba(0, 255, 170, 0.6); /* Lueur verte */
+        /* Language Button */
+        .lang-toggle {
+            background: linear-gradient(90deg, var(--gold), #f3cf7a);
+            color: black;
+            font-weight: bold;
+            padding: 5px 20px;
+            border-radius: 50px;
+            font-size: 12px;
+            transition: 0.3s;
+        }
+
+        .lang-toggle:hover {
+            transform: rotate(-3deg) scale(1.1);
+            box-shadow: 0 0 20px var(--gold);
         }
     </style>
 </head>
 <body>
 
-    <div class="skyline-bg"></div>
-    <div class="grid-overlay"></div>
+<div id="canvas-container"></div>
 
-    <main class="max-w-7xl mx-auto px-10 pt-10 relative">
+<header class="flex justify-between items-center p-8 lg:px-20 relative z-50">
+    <div class="flex items-center gap-3">
+        <div class="w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-[0_0_15px_rgba(255,255,255,0.5)]">
+            <span class="text-black font-bold">A</span>
+        </div>
+        <span class="syncopate tracking-tighter text-xl font-bold">ARD <span class="text-[#00ffaa]">SAUDI</span></span>
+    </div>
+
+    <nav class="hidden md:flex gap-12 text-[10px] tracking-[0.3em] font-bold opacity-70">
+        <a href="#" class="hover:text-[#00ffaa] hover:opacity-100 transition">SOLUTIONS</a>
+        <a href="#" class="hover:text-[#00ffaa] hover:opacity-100 transition">ADVISORY</a>
+        <a href="#" class="hover:text-[#00ffaa] hover:opacity-100 transition">CONTACT</a>
+    </nav>
+
+    <button onclick="toggleLanguage()" class="lang-toggle" id="lang-btn">EN</button>
+</header>
+
+<main class="max-w-7xl mx-auto px-8 lg:px-20 pt-10">
+    <div class="grid grid-cols-12 gap-8 items-center">
         
-        <div class="shield-trigger"></div>
-        <div class="trust-card">
-            <p class="text-[10px] uppercase tracking-widest text-[#00ffaa]">ARD Internal Trust Score</p>
-            <p class="text-3xl font-bold neon-text">94%</p>
-            <p class="text-[8px] uppercase">Surveillance Continue de Conformité</p>
-        </div>
-
-        <div class="grid grid-cols-12 gap-12 mt-10">
+        <div class="col-span-12 lg:col-span-7">
+            <h2 class="text-xs font-bold tracking-[0.5em] text-[#00ffaa] mb-4 uppercase" id="hero-tag">Sovereign Intelligence</h2>
+            <h1 class="text-6xl lg:text-8xl font-bold syncopate leading-none mb-8">
+                TRUST <br> <span class="text-transparent" style="-webkit-text-stroke: 1px white;">ARCHITECT</span>
+            </h1>
             
-            <div class="col-span-12 lg:col-span-7">
-                <h1 class="text-6xl font-bold mb-2">ARD SAUDI</h1>
-                <p class="text-xl text-[#00ffaa] font-medium tracking-wide mb-16">Securing the Digital Soil of the Kingdom</p>
+            <p class="text-lg opacity-60 max-w-lg mb-12 leading-relaxed" id="hero-desc">
+                We translate complex Saudi GRC mandates into operational power. Your vision, protected by our intelligence.
+            </p>
 
-                <div class="grid grid-cols-3 gap-6 mb-16">
-                    <div class="p-8 text-center" style="background: rgba(10,20,40,0.6); border: 1px solid rgba(0,255,170,0.2); border-radius: 20px;">
-                        <span class="text-5xl font-bold neon-text block mb-4">A</span>
-                        <p class="text-[11px] uppercase font-bold tracking-widest">IA & Tech. Émergentes</p>
-                    </div>
-                    <div class="p-8 text-center" style="background: rgba(10,20,40,0.6); border: 1px solid rgba(0,255,170,0.2); border-radius: 20px; border-color: var(--neon-green);">
-                        <span class="text-5xl font-bold neon-text block mb-4">R</span>
-                        <p class="text-[11px] uppercase font-bold tracking-widest">GRC & Gouvernance</p>
-                    </div>
-                    <div class="p-8 text-center" style="background: rgba(10,20,40,0.6); border: 1px solid rgba(0,255,170,0.2); border-radius: 20px;">
-                        <span class="text-5xl font-bold neon-text block mb-4">D</span>
-                        <p class="text-[11px] uppercase font-bold tracking-widest">Sécurité des Données</p>
-                    </div>
-                </div>
-
-                <div class="p-8 border-l-4 border-[#00ffaa]" style="background: rgba(10,20,40,0.6); border-radius: 20px;">
-                    <p class="text-xl italic opacity-90">
-                        "Welcome to the ARD Intelligence Studio. In the Saudi Vision 2030 era, compliance is your digital sovereignty."
-                    </p>
-                </div>
+            <div class="flex gap-6">
+                <button class="bg-[#00ffaa] text-black font-bold px-10 py-4 rounded-xl hover:shadow-[0_0_30px_#00ffaa] transition transform hover:-translate-y-1" id="btn-start">
+                    Initialize Discovery
+                </button>
             </div>
+        </div>
 
-            <div class="col-span-12 lg:col-span-5 flex flex-col justify-center">
-                <div class="relative p-1 studio-frame studio-bg" style="background: rgba(0,0,0,0.8); border-radius: 24px; border: 1px solid rgba(255,255,255,0.1);">
-                    <div class="aspect-video bg-black flex items-center justify-center" style="border-radius: 20px;">
-                        <span class="text-xs opacity-20 italic">Virtual Studio Loading...</span>
+        <div class="col-span-12 lg:col-span-5 relative">
+            <div class="glass p-8 flex flex-col items-center gap-6">
+                <div class="shield-scanner group">
+                    <div class="scanner-line"></div>
+                    <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                        <span class="text-[#00ffaa] font-bold text-2xl">94%</span>
                     </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold">Studio Virtuel de Saif</h3>
-                        <p class="text-xs neon-text uppercase tracking-widest">Briefing Intelligence en Direct</p>
-                    </div>
+                </div>
+                <div class="text-center">
+                    <h3 class="syncopate text-sm mb-1" id="scanner-title">Compliance Scan</h3>
+                    <p class="text-[10px] opacity-40 uppercase tracking-widest" id="scanner-sub">Target: ARD SAUDI HQ</p>
+                </div>
+                
+                <div class="w-full h-[1px] bg-white/10"></div>
+                
+                <div class="w-full flex justify-between items-center text-xs">
+                    <span class="opacity-50">SAMA CSF</span>
+                    <span class="text-[#00ffaa]">COMPLIANT</span>
+                </div>
+                <div class="w-full flex justify-between items-center text-xs">
+                    <span class="opacity-50">SDAIA ETHICS</span>
+                    <span class="text-[#00ffaa]">VERIFIED</span>
                 </div>
             </div>
         </div>
-    </main>
+    </div>
 
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-20">
+        <div class="glass p-10 relative overflow-hidden group">
+            <span class="text-5xl font-bold opacity-10 absolute -right-4 -top-4 group-hover:text-[#00ffaa] group-hover:opacity-100 transition-all">A</span>
+            <h4 class="text-xl font-bold mb-4" id="p-a-title">AI Ethics</h4>
+            <p class="text-sm opacity-50" id="p-a-desc">Operationalizing SDAIA frameworks and ISO 42001 for high-stakes deployment.</p>
+        </div>
+        <div class="glass p-10 relative overflow-hidden group border-[#00ffaa]/30">
+            <span class="text-5xl font-bold opacity-10 absolute -right-4 -top-4 group-hover:text-[#00ffaa] group-hover:opacity-100 transition-all">R</span>
+            <h4 class="text-xl font-bold mb-4" id="p-r-title">GRC Mastery</h4>
+            <p class="text-sm opacity-50" id="p-r-desc">Strategic alignment with NCA ECC and SAMA mandates for critical infrastructure.</p>
+        </div>
+        <div class="glass p-10 relative overflow-hidden group">
+            <span class="text-5xl font-bold opacity-10 absolute -right-4 -top-4 group-hover:text-[#00ffaa] group-hover:opacity-100 transition-all">D</span>
+            <h4 class="text-xl font-bold mb-4" id="p-d-title">Data Sovereignty</h4>
+            <p class="text-sm opacity-50" id="p-d-desc">Protecting the digital soil through NDMO PDPL and advanced cyber-defense.</p>
+        </div>
+    </div>
+</main>
+
+<footer class="max-w-7xl mx-auto px-8 lg:px-20 py-20 mt-20 border-t border-white/5">
+    <div class="flex flex-col md:flex-row justify-between items-center gap-10">
+        <div class="flex gap-10">
+            <div class="flex items-center gap-4">
+                <div class="w-12 h-12 rounded-full border border-white/20 bg-gradient-to-tr from-gray-800 to-black"></div>
+                <div>
+                    <p class="font-bold text-sm">Nawal Harroud</p>
+                    <p class="text-[9px] uppercase tracking-widest opacity-40">Strategic Founder</p>
+                </div>
+            </div>
+            <div class="flex items-center gap-4">
+                <div class="w-12 h-12 rounded-full border border-[#00ffaa] bg-gradient-to-tr from-gray-800 to-black"></div>
+                <div>
+                    <p class="font-bold text-sm">Saif</p>
+                    <p class="text-[9px] uppercase tracking-widest text-[#00ffaa]">Lead Intelligence</p>
+                </div>
+            </div>
+        </div>
+        <div class="syncopate text-[10px] opacity-20 tracking-[1em]">
+            © 2026 ARD SAUDI
+        </div>
+    </div>
+</footer>
+
+<script>
+    let currentLang = 'en';
+
+    function toggleLanguage() {
+        currentLang = currentLang === 'en' ? 'fr' : 'en';
+        document.getElementById('lang-btn').innerText = currentLang === 'en' ? 'EN' : 'FR';
+        
+        const content = {
+            en: {
+                tag: "Sovereign Intelligence",
+                desc: "We translate complex Saudi GRC mandates into operational power. Your vision, protected by our intelligence.",
+                btn: "Initialize Discovery",
+                scanT: "Compliance Scan",
+                pA: ["AI Ethics", "Operationalizing SDAIA frameworks and ISO 42001."],
+                pR: ["GRC Mastery", "Strategic alignment with NCA ECC and SAMA mandates."],
+                pD: ["Data Sovereignty", "Protecting the digital soil through NDMO PDPL."]
+            },
+            fr: {
+                tag: "Intelligence Souveraine",
+                desc: "Nous traduisons les mandats GRC saoudiens complexes en puissance opérationnelle. Votre vision, protégée.",
+                btn: "Initialiser la Découverte",
+                scanT: "Scan de Conformité",
+                pA: ["Éthique de l'IA", "Opérationnalisation des cadres SDAIA et ISO 42001."],
+                pR: ["Maîtrise GRC", "Alignement stratégique avec les mandats NCA et SAMA."],
+                pD: ["Souveraineté des Données", "Protection du sol numérique via NDMO et PDPL."]
+            }
+        };
+
+        const c = content[currentLang];
+        document.getElementById('hero-tag').innerText = c.tag;
+        document.getElementById('hero-desc').innerText = c.desc;
+        document.getElementById('btn-start').innerText = c.btn;
+        document.getElementById('scanner-title').innerText = c.scanT;
+        document.getElementById('p-a-title').innerText = c.pA[0];
+        document.getElementById('p-a-desc').innerText = c.pA[1];
+        document.getElementById('p-r-title').innerText = c.pR[0];
+        document.getElementById('p-r-desc').innerText = c.pR[1];
+        document.getElementById('p-d-title').innerText = c.pD[0];
+        document.getElementById('p-d-desc').innerText = c.pD[1];
+    }
+
+    // GSAP Entrance Animations
+    gsap.from(".glass", {
+        duration: 1.5,
+        opacity: 0,
+        y: 100,
+        stagger: 0.2,
+        ease: "power4.out"
+    });
+
+    gsap.from("h1", {
+        duration: 2,
+        x: -100,
+        opacity: 0,
+        ease: "expo.out"
+    });
+</script>
 </body>
 </html>
